@@ -5,7 +5,7 @@
 	<artifactId>mcms</artifactId>
 	<packaging>war</packaging>
 	<version>4.5.4</version>
-	<name>长天星斗内容管理系统</name>
+	<name>内容管理系统</name>
 	<url>http://cosmistar.com</url>
 	<dependencies>
 		<!-- MStore客户端 详细见http://ms.ming-soft.com/mbbs/13008/detail.do -->
