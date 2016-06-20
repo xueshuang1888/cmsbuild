@@ -20,7 +20,7 @@ public class ReservationEntity extends BasicEntity {
 	private Date reservationDateEnd;
 	private String comment;
 	private Date createTime;
-	private String dealFlag;//是否处理
+	private String dealFlag;//是否处理 暂且不用改字段
     private String openId;//微信ID
 	private Date modifyTime;//修改时间
 	

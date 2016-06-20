@@ -17,14 +17,18 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.business.biz.IReservationBiz;
 import com.mingsoft.business.entity.ReservationEntity;
 import com.mingsoft.util.PageUtil;
+import com.mingsoft.util.redis.CacheUtil;
+import com.mingsoft.util.sms.SmsTest;
 
 @Controller("reservationAction")
 @RequestMapping("/manager/reservation")
@@ -35,7 +39,6 @@ public class ReservationAction extends BaseAction{
 	
 	@RequestMapping("/list")
 	public String list(@ModelAttribute("reservation") ReservationEntity reservation,HttpServletRequest request, ModelMap mode, HttpServletResponse response){
-		
 		/*PageUtil page = new PageUtil(pageNo, recordCount, linkUrl);
 		this.reservationBiz.queryByPage(page, "createTime", true);*/
 		if (reservation==null) {
@@ -71,13 +74,13 @@ public class ReservationAction extends BaseAction{
 		
 		// 返回路径
 		this.setCookie(request, response, CookieConst.BACK_COOKIE,url+"&pageNo="+pageNo);
-		return "manager/cms/reservation/reservation_list";
+		return "manager/business/reservation/reservation_list";
 	} 
 	
 	@RequestMapping("/editReservaiton")
 	public String editReservation(@ModelAttribute("reservation") ReservationEntity reservation,HttpServletRequest request, ModelMap mode, HttpServletResponse response){
 		mode.addAttribute("reservation", reservation);
-		return "manager/cms/reservation/edit_reservation";
+		return "manager/business/reservation/edit_reservation";
 	}
 	
 	@RequestMapping("/save")
@@ -123,7 +126,7 @@ public class ReservationAction extends BaseAction{
 	@RequestMapping("/testPage")
 	public String testPage(@ModelAttribute("reservation") ReservationEntity reservation,HttpServletRequest request, ModelMap mode, HttpServletResponse response){
 		mode.addAttribute("reservation", reservation);
-		return "manager/cms/reservation/edit_reservation";
+		return "manager/business/reservation/edit_reservation";
 	}
 	
 	@ModelAttribute("reservation")
@@ -146,5 +149,60 @@ public class ReservationAction extends BaseAction{
 		//dataBinder.registerCustomEditor(Boolean.class, new CustomBooleanEditor(true));
 	}
 
+        /**
+         * 
+         * @Title: reSendSms
+         * @Author: jk
+         * @Description: 注册重发短信
+         * @param @param request
+         * @param @param response
+         * @param @return
+         * @return String
+         * @throws
+         */
+    	@RequestMapping(value = "/reSendSms.nasuxwx", method = RequestMethod.POST)
+    	@ResponseBody
+    	public String  reSendSms(HttpServletRequest request,HttpServletResponse response){
+        String phoneNumber = request.getParameter("phoneNumber");
+        SmsTest st = new SmsTest();
+        String cap = st.createCaptcha();
+        // 记录到Redis中，5分钟,key是key+手机号
+    	CacheUtil.put("key"+phoneNumber, cap, 300);
+        JSONObject js = new JSONObject();
+        js.put("phoneNumber", phoneNumber);
+        js.put("cap", cap);
+        st.sendCaptcha(js);
+        return null;
+    }
+    	
+    	
+    	/**
+    	 * 
+    	 * @Title: judgeReSendSms
+    	 * @Author: jk
+    	 * @Description: 校验验证码是否准确
+    	 * @param @param request
+    	 * @param @param response
+    	 * @param @return
+    	 * @return Map<String,String>
+    	 * @throws
+    	 */
+    	@RequestMapping("/judgeReSendSms")
+    	@ResponseBody
+    	public Map<String, String> judgeReSendSms(HttpServletRequest request,HttpServletResponse response){
+    		Map<String, String> msgMap = new HashMap<String,String>();
+    		 String phoneNumber = request.getParameter("phoneNumber");
+    		 String captchaImg = request.getParameter("captchaImg");
+    		 String captchaImgInfo = CacheUtil.get("key"+phoneNumber);
+    		 if(captchaImgInfo !=null && captchaImgInfo.equals(captchaImg)){
+    				msgMap.put("msgCode", "success");
+        			msgMap.put("msg", "保存成功！");
+    		 }else{
+    				msgMap.put("msgCode", "error");
+        			msgMap.put("msg", "验证码无效,\n 请重新输入！");
+    		 }
+    		return msgMap;
+    	}
+    
 	
 }
