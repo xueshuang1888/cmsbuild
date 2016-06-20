@@ -1,4 +1,4 @@
-package com.mingsoft.cms.action.web;
+package com.mingsoft.business.action;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.web.util.SavedRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.cms.biz.IReservationBiz;
-import com.mingsoft.cms.entity.ReservationEntity;
+import com.mingsoft.business.biz.IReservationBiz;
+import com.mingsoft.business.entity.ReservationEntity;
 import com.mingsoft.util.PageUtil;
 
 @Controller("reservationAction")

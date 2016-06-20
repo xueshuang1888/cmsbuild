@@ -32,7 +32,7 @@
                 	<!--退出-->
                     <a href="" class="ms-top-menuchildtext" data-toggle="modal" data-target=".loginOut" class="ms-top-menuchildtext" data-toggle="tooltip" data-placement="bottom" title="退出" ><span class="glyphicon glyphicon-off"></span></a>
                     <!--更新-->
-                    <!--<a class="ms-top-menuchildtext ms-update" data-toggle="tooltip" data-placement="bottom" title="检查更新"><span class="glyphicon glyphicon-refresh"></span><span class="badge"></span></a>-->
+                    <a class="ms-top-menuchildtext ms-update" data-toggle="tooltip" data-placement="bottom" title="检查更新"><span class="glyphicon glyphicon-refresh"></span><span class="badge"></span></a>
                     <!--首页-->
                     <a href="javascript:location.reload()" class="ms-top-menuchildtext" data-toggle="tooltip" data-placement="bottom" title="管理主界面"><span class="glyphicon glyphicon-home"></span></a>
                 </div>

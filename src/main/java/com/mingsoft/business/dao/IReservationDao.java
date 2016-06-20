@@ -1,11 +1,11 @@
-package com.mingsoft.cms.dao;
+package com.mingsoft.business.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.mingsoft.base.dao.IBaseDao;
-import com.mingsoft.cms.entity.ReservationEntity;
+import com.mingsoft.business.entity.ReservationEntity;
 
 public interface IReservationDao extends IBaseDao {
 

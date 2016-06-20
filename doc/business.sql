@@ -67,3 +67,22 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table t_reservation;
+drop table reservation;
+
+
+
+CREATE TABLE `t_reservation` (
+  `ID` int(22) NOT NULL AUTO_INCREMENT COMMENT '预约管理',
+  `USER_NAME` varchar(50) DEFAULT NULL,
+  `PHONE_NUM` varchar(11) DEFAULT NULL,
+  `RESERVATION_DATE_BEGIN` datetime DEFAULT NULL,
+  `RESERVATION_DATE_END` datetime DEFAULT NULL,
+  `COMMENT` varchar(1000) DEFAULT NULL,
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `DEAL_FLAG` varchar(1) DEFAULT NULL COMMENT '是否处理',
+  `OPEN_ID` varchar(30) DEFAULT NULL COMMENT '微信ID',
+  `MODIFY_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+

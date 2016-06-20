@@ -1,4 +1,4 @@
-package com.mingsoft.cms.biz.impl;
+package com.mingsoft.business.biz.impl;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.impl.BasicBizImpl;
-import com.mingsoft.cms.biz.IReservationBiz;
-import com.mingsoft.cms.dao.IReservationDao;
-import com.mingsoft.cms.entity.ReservationEntity;
+import com.mingsoft.business.biz.IReservationBiz;
+import com.mingsoft.business.dao.IReservationDao;
+import com.mingsoft.business.entity.ReservationEntity;
 import com.mingsoft.util.PageUtil;
 
 @Service("ReservationBizImpl")

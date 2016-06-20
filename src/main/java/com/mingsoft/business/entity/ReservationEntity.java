@@ -1,4 +1,4 @@
-package com.mingsoft.cms.entity;
+package com.mingsoft.business.entity;
 
 import java.util.Date;
 
@@ -20,6 +20,10 @@ public class ReservationEntity extends BasicEntity {
 	private Date reservationDateEnd;
 	private String comment;
 	private Date createTime;
+	private String dealFlag;//是否处理
+    private String openId;//微信ID
+	private Date modifyTime;//修改时间
+	
 	
 	private PageUtil page;
 	private String orderBy;
@@ -87,4 +91,25 @@ public class ReservationEntity extends BasicEntity {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	public String getDealFlag() {
+		return dealFlag;
+	}
+	public void setDealFlag(String dealFlag) {
+		this.dealFlag = dealFlag;
+	}
+	public String getOpenId() {
+		return openId;
+	}
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
+	
+	
+	
 }

@@ -1,10 +1,9 @@
-package com.mingsoft.cms.biz;
+package com.mingsoft.business.biz;
 
 import java.util.List;
 
-
 import com.mingsoft.basic.biz.IBasicBiz;
-import com.mingsoft.cms.entity.ReservationEntity;
+import com.mingsoft.business.entity.ReservationEntity;
 import com.mingsoft.util.PageUtil;
 
 public interface IReservationBiz extends IBasicBiz{
