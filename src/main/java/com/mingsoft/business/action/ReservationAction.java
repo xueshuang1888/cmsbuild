@@ -160,18 +160,18 @@ public class ReservationAction extends BaseAction{
          * @return String
          * @throws
          */
-    	@RequestMapping(value = "/reSendSms.nasuxwx", method = RequestMethod.POST)
+    	@RequestMapping(value = "/reSendSms", method = RequestMethod.POST)
     	@ResponseBody
     	public String  reSendSms(HttpServletRequest request,HttpServletResponse response){
-        String phoneNumber = request.getParameter("phoneNumber");
+        String phoneNum = request.getParameter("phoneNum");
         SmsTest st = new SmsTest();
         String cap = st.createCaptcha();
         // 记录到Redis中，5分钟,key是key+手机号
-    	CacheUtil.put("key"+phoneNumber, cap, 300);
-        JSONObject js = new JSONObject();
-        js.put("phoneNumber", phoneNumber);
+    	CacheUtil.put("key"+phoneNum, cap, 300);
+    /*    JSONObject js = new JSONObject();
+        js.put("phoneNumber", phoneNum);
         js.put("cap", cap);
-        st.sendCaptcha(js);
+        st.sendCaptcha(js);*/
         return null;
     }
     	
@@ -190,16 +190,16 @@ public class ReservationAction extends BaseAction{
     	@RequestMapping("/judgeReSendSms")
     	@ResponseBody
     	public Map<String, String> judgeReSendSms(HttpServletRequest request,HttpServletResponse response){
-    		Map<String, String> msgMap = new HashMap<String,String>();
-    		 String phoneNumber = request.getParameter("phoneNumber");
+    		 Map<String, String> msgMap = new HashMap<String,String>();
+    		 String phoneNum = request.getParameter("phoneNum");
     		 String captchaImg = request.getParameter("captchaImg");
-    		 String captchaImgInfo = CacheUtil.get("key"+phoneNumber);
+    		 String captchaImgInfo = CacheUtil.get("key"+phoneNum);
     		 if(captchaImgInfo !=null && captchaImgInfo.equals(captchaImg)){
     				msgMap.put("msgCode", "success");
         			msgMap.put("msg", "保存成功！");
     		 }else{
     				msgMap.put("msgCode", "error");
-        			msgMap.put("msg", "验证码无效,\n 请重新输入！");
+        			msgMap.put("msg", "验证码无效");
     		 }
     		return msgMap;
     	}
