@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.business.biz.IReservationBiz;
@@ -29,7 +28,14 @@ import com.mingsoft.business.entity.ReservationEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.redis.CacheUtil;
 import com.mingsoft.util.sms.SmsTest;
-
+/**
+ * 
+ * @ClassName: ReservationAction
+ * @Description: 预约控制类
+ * @author: jk
+ * @date: 2016年6月21日 下午5:48:20
+ *
+ */
 @Controller("reservationAction")
 @RequestMapping("/manager/reservation")
 public class ReservationAction extends BaseAction{

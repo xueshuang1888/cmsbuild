@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 字段管理持久化层XML配置继承IFieldDao -->
+<mapper namespace="com.mingsoft.business.dao.ITuserDao">
+	<sql id="column_list">
+		ID,HEAD_PHOTO,NAME,SEX,MOBILE,POINT,OPEN_ID,CREATE_TIME,MODIFY_TIME
+	</sql>
+	
+	<!-- 表字段与实体属性对应，供返回实体信息时使用 -->
+	<resultMap id="resultMapField" type="com.mingsoft.business.entity.TuserEntity">
+		<id column="ID" property="id" />
+		<result column="HEAD_PHOTO" property="headPhoto" />
+		<result column="NAME" property="name" />
+		<result column="SEX" property="sex" />
+		<result column="MOBILE" property="mobile" />
+		<result column="POINT" property="point" />
+		<result column="OPEN_ID" property="openId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="MODIFY_TIME" property="modifyTime" />
+	</resultMap>
+	
+
+
+	<!-- 查询所有字段开始 -->
+	<select id="queryAll" resultMap="resultMapField">
+		select * from t_user;
+	</select>
+	<!-- 查询所有字段结束 -->
+	
+	
+	<!-- 统计指定表单的字段数量开始 -->
+	<select id="queryCountByCond" resultType="int" parameterType="com.mingsoft.business.entity.TuserEntity" >
+		select count(*) from t_user where 1=1 
+		<if test="name !=null and name != '' ">
+			and NAME like CONCAT(CONCAT('%', #{name}), '%')
+		</if>
+		<if test="mobile !=null and mobile != '' ">
+			and MOBILE = CONCAT(CONCAT('%', #{mobile}), '%')
+		</if>
+	</select>
+	<!-- 统计指定表单的字段数量结束 -->
+	
+	<!-- 字段列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMapField" parameterType="com.mingsoft.business.entity.TuserEntity">
+		select * from t_user where 1=1 
+		<if test="name !=null and name != '' ">
+			and NAME like CONCAT(CONCAT('%', #{name}), '%')
+		</if>
+		<if test="mobile !=null and mobile != '' ">
+			and MOBILE = CONCAT(CONCAT('%', #{mobile}), '%')
+		</if>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		<if test="page != null">
+		
+		    limit ${page.pageNo*page.pageSize},#{page.pageSize}
+		</if>
+	</select>
+	<!-- 字段列表分页查询结束 -->
+	
+	
+	
+	<!-- 增加字段实体开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.business.entity.TuserEntity">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="headPhoto != null">HEAD_PHOTO,</if>
+			<if test="name != null">NAME,</if>
+			<if test="sex != null">SEX,</if>
+			<if test="mobile != null">MOBILE,</if>
+			<if test="point != null">POINT,</if>
+			<if test="openId != null">OPEN_ID,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="modifyTime != null">MODIFY_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="headPhoto != null">#{headPhoto},</if>
+			<if test="name != null">#{name},</if>
+			<if test="sex != null">#{sex},</if>
+			<if test="mobile != null">#{mobile},</if>
+			<if test="point != null">#{point}</if>
+			<if test="openId != null">#{openId}</if>
+			<if test="createTime != null">#{createTime}</if>
+			<if test="modifyTime != null">#{modifyTime}</if>
+			
+		</trim>
+	</insert>
+	
+	
+		
+		
+	<!-- 增加字段实体结束 -->
+	
+	<!-- 删除字段实体开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from t_user where id = #{id}
+	</delete>
+	<!-- 删除字段实体结束 -->
+		
+	<!-- 查询字段实体开始 -->
+	<select id="getTuserEntity" resultMap="resultMapField" parameterType="int">
+		select 
+			<include refid="column_list"/>
+		  		from t_user where id=#{id};
+	</select>
+	<!-- 查询字段实体结束 -->
+	
+	
+	<!-- 更新字段开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.business.entity.TuserEntity">
+		update t_user
+		<set>
+			<if test="headPhoto != null">HEAD_PHOTO=#{headPhoto},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="sex != null">SEX=#{sex},</if>
+			<if test="mobile != null">MOBILE=#{mobile},</if>
+			<if test="point != null">POINT=#{point}</if>
+			<if test="openId != null">OPEN_ID=#{openId}</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime}</if>
+			<if test="modifyTime != null">MODIFY_TIME=#{modifyTime}</if>
+		</set>
+		where id=#{id};
+	</update>
+	<!-- 更新字段结束 -->
+	
+</mapper>
