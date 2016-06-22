@@ -29,7 +29,7 @@ import com.mingsoft.util.PageUtil;
 /**
  * 
  * @ClassName: TuserAction
- * @Description: 系统注册用户控制类
+ * @Description: 系统注册用户控制类33
  * @author:jk
  * @date: 2016年6月21日 下午5:47:23
  *
